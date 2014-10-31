@@ -3,12 +3,12 @@ from setuptools import setup
 
 setup(
     name='django-changuito',
-    version='0.7',
-    description='A fork of django-cart with the same simplicity but up-to-date',
+    version='0.7.ben',
+    description='A fork of a fork of django-cart with the same simplicity but up-to-date',
     maintainer='Angel Velasquez',
     maintainer_email='angvp@archlinux.org',
     license="LGPL v3",
-    url='https://github.com/angvp/django-changuito',
+    url='https://github.com/ben-liang/django-changuito',
     packages=['changuito'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
