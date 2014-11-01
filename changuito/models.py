@@ -54,6 +54,7 @@ class Item(models.Model):
     # product as generic relation
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
+    variant = models.CharField(max_length=32,null=True,blank=True)
 
     objects = ItemManager()
 
@@ -84,6 +85,10 @@ class Item(models.Model):
 
     def update_quantity(self, quantity):
         self.quantity = quantity
+        self.save()
+
+    def update_variant(self, variant):
+        self.variant= variant
         self.save()
 
     def update_price(self, price):

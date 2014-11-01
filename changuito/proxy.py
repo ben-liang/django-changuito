@@ -63,16 +63,17 @@ class CartProxy:
         request.session[CART_ID] = cart.id
         return cart
 
-    def add(self, product, unit_price, quantity=1):
+    def add(self, product, unit_price, quantity=1, variant=None):
         try:
             ctype = ContentType.objects.get_for_model(type(product), for_concrete_model=False)
-            item = models.Item.objects.get(cart=self.cart, product=product, content_type=ctype)
+            item = models.Item.objects.get(cart=self.cart, product=product, content_type=ctype, variant=variant)
         except models.Item.DoesNotExist:
             item = models.Item()
             item.cart = self.cart
             item.product = product
             item.unit_price = unit_price
             item.quantity = quantity
+            item.variant = variant
             item.save()
         else:
             item.quantity += quantity
@@ -84,9 +85,9 @@ class CartProxy:
         except models.Item.DoesNotExist:
             raise ItemDoesNotExist
 
-    def update(self, product, quantity, unit_price=None):
+    def update(self, product, quantity, variant=None, unit_price=None):
         try:
-            item = models.Item.objects.get(cart=self.cart, product=product)
+            item = models.Item.objects.get(cart=self.cart, product=product, variant=variant)
             item.quantity = quantity
             item.save()
         except models.Item.DoesNotExist:
